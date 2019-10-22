@@ -55,27 +55,32 @@ public:
 
 		while (pParent)
 		{
-			if (pParent->_pLeft == pCur)
+			if (pParent->_pLeft == pCur)//如果结点插在了双亲的左子树，双亲的平衡因子--，（平衡因子这里是右子树高度-左子树高度）
 				pParent->_bf--;
 			else
-				pParent->_bf++;
-			if (0 == pParent->_bf)
+				pParent->_bf++;//如果结点插在了双亲的右子树，双亲的平衡因子++
+
+			if (0 == pParent->_bf)//如果双亲的平衡因子在插入之后平衡因子成为了0，这时以双亲为根结点的子树的高度没有变，跳出
 				return true;
-			else if (-1 == pParent->_bf || 1 == pParent->_bf){
-				pCur = pParent;
+			else if (-1 == pParent->_bf || 1 == pParent->_bf)//双亲的平衡因子是1或者-1，说明在更新之前双亲的平衡因子是0，在插入之后，以双亲为根结点的子树的高度增加了
+			{
+				pCur = pParent;//平衡因子继续向上更新，直到双亲是空，说明更新完了，因此要有一个循环
 				pParent = pCur->_pParent;
 			}
-			else{
-				if (2 == pParent->_bf){
-					if (1 == pCur->_bf)
+			else//无外乎双亲的平衡因子是2或者-2
+			{
+				if (2 == pParent->_bf)//此时以双亲为根结点的右子树高度高
+				{
+					if (1 == pCur->_bf)//说明此时插入的结点在右子树的外侧
 						RotatoL(pParent);
-					else
+					else//插入的结点在右子树的里侧
 						RotatoRL(pParent);
 				}
-				else{
-					if (-1 == pCur->_bf)
+				else//此时以双亲为根结点的左子树高
+				{
+					if (-1 == pCur->_bf)//插入的结点在左子树的最外侧
 						RotatoR(pParent);
-					else
+					else//插入的结点在左子树的里侧
 						RotatoLR(pParent);
 				}
 				break;
