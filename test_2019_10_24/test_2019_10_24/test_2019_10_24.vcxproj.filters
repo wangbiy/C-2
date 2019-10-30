@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="RBTree.cpp">
+    <ClCompile Include="RBTree.hpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
